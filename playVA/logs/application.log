@@ -93,3 +93,5 @@ play.api.db.evolutions.InvalidDatabaseRevision: Database 'default' needs evoluti
 
 2017-11-24 19:32:34,312 [INFO] from play.api.Play in play-dev-mode-akka.actor.default-dispatcher-71 - Application started (Dev)
 2017-11-24 19:33:06,095 [WARN] from application in play-dev-mode-akka.actor.default-dispatcher-72 - The "validate" method in class "models.Register" is deprecated since Play 2.6. To migrate to class-level constraints see https://www.playframework.com/documentation/2.6.x/Migration26#java-form-changes and https://www.playframework.com/documentation/2.6.x/JavaForms#Advanced-validation
+2017-11-24 19:44:16,255 [INFO] from play.core.server.AkkaHttpServer in pool-4-thread-1 - Stopping server...
+2017-11-24 19:44:16,302 [INFO] from application in pool-4-thread-1 - Shutting down connection pool.
