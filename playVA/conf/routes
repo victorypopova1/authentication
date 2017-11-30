@@ -23,6 +23,16 @@ GET    /register                    controllers.Auth.register()
 #Отправка на форму регистрации
 GET    /signup                      controllers.Auth.signup()
 
+#Авторизация
+GET     /auth                        controllers.Auth.auth()
+GET     /login                       controllers.Auth.login()
+
+#Выход
+GET     /logout                       controllers.Auth.logout()
+
+#Сменить пароль
+GET     /profile                       controllers.Auth.profile()
+GET     /change                       controllers.Auth.changePassword()
 # Отображает статические файлы из папки /public в /public URL
 #GET     /public/*file               controllers.Assets.versioned(path="/public", file: Asset)
 GET     /*file               controllers.Assets.versioned(path="/public", file: Asset)

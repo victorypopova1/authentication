@@ -1,15 +1,17 @@
 package controllers;
 
 import router.Routes;
-import models.User;
 import play.data.Form;
 import play.data.FormFactory;
 import play.mvc.Controller;
 import play.mvc.Result;
 import models.Register;
+import models.Login;
+import models.User;
+import models.ChangePassword;
 import views.html.*;
 import javax.inject.Inject;
-
+import play.mvc.Security;
 /**
  * This controller contains an action to handle HTTP requests
  * to the application's home page.
@@ -60,5 +62,63 @@ public class Auth extends Controller {
             // перенаправляем куда нам нужно после успешной аутентификации
             return redirect(routes.HomeController.index());
         }
+    }
+
+    /**
+     * Страница выдачи формы для аутентификации
+     * @return страница с пустой формой логин/пароль.
+     *
+     * NB: В случае, если пользователь уже аутентифицирован должна возвращать редирект на Application.index()
+     *
+     * Подсказка: воспользоваться генераторами форм на базе класса Login
+     * Form.form(Login.class)
+     *
+     */
+    public Result login() {
+        if (session("email") != null) return ok(login.render(formFactory.form(Login.class)));
+        else return ok(login.render(formFactory.form(Login.class)));
+    }
+
+    /**
+     * Обработка формы аутентификации
+     * Производит валидацию штатными средствами засчет Login.validate(). Он неявно вызывается при вызове
+     *
+     * loginForm.hasErrors()
+     *
+     * Подсказка: этот метод уже реализован для демонстрации.
+     *
+     * @return форму с ошибкой в случае не корректной валидации.
+     * В случае успеха устанавливает ключ в сессии и перенаправляет на главную страницу
+     */
+    public Result auth() {
+        Form<Login> loginForm = formFactory.form(Login.class).bindFromRequest();
+        if (loginForm.hasErrors())
+            //Ты не пройдешь!
+            return badRequest(login.render(loginForm));
+        else {
+            //Пароль подошел. Устанавливаем ключ в сессии
+            session("email", loginForm.get().email);
+            //ключик в краткосрочной памяти длявыдачи alert-ов
+            flash("success","Вы успешно аутентифицировались. Добро пожаловать!");
+            //перенаправляем на вход либо на главную страницу, либо в область администрирования
+            return redirect(routes.HomeController.index());
+        }
+    }
+    public Result profile() {
+        return ok(change.render(formFactory.form(ChangePassword.class)));
+    }
+
+    public Result changePassword() {
+        Form<ChangePassword> changePasswordForm = formFactory.form(ChangePassword.class).bindFromRequest();
+        if (changePasswordForm.hasErrors())//Пользлватель не пройдет
+            return badRequest(change.render(changePasswordForm));
+        else {//иначе - переход на главную страницу
+            return redirect(routes.HomeController.index());
+        }
+    }
+
+    public Result logout() {
+        session().clear();
+        return redirect(routes.HomeController.index());
     }
 }

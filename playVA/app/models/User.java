@@ -6,8 +6,8 @@ import org.apache.commons.codec.binary.Base64;
 import org.hibernate.validator.constraints.Email;
 import play.api.libs.Crypto;
 import play.data.validation.Constraints;
-
-
+import controllers.Secured;
+import static play.mvc.Http.Context.current;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.security.MessageDigest;
@@ -122,5 +122,42 @@ public class User extends Model {
      */
     public static boolean emailAvailable(String email) {
         return (find.byId(email) == null);
+    }
+    /**
+     * Проверяем подошел ли пароль
+     *
+     * @param password пароль
+     * @return в случае совпадения пароля, возвращет true, иначе возвращает false
+     */
+    public boolean checkPassword(String password) {
+        return getHash(password+salt).equals(passwordHash);
+    }
+    /**
+     * @param email почтовый адрес
+     * @param password пароль
+     * @return возвращает null в случае успешной аутентификации.
+     * В случае если пользователь не зарегистрирован возвращает сообщение об ошибке
+     * "Пользователь с данным email не зарегистрирован или не верный пароль"
+     */
+    public static String authenticate(String email, String password) {
+        User user = find.byId(email);
+        if (user == null || !user.checkPassword(password))
+            return "Пользователь с данным email не зарегистрирован или не верный пароль";
+        else
+            return null;
+    }
+
+    /**
+     смена пароля
+     */
+    public static String changePassword(String _password) {
+        User user = find.byId(new Secured().getUsername(current()));
+
+        if (user!=null) {
+            user.setPassword(_password);
+            return "Пароль изменен";
+        }
+        else
+            return null;
     }
 }
