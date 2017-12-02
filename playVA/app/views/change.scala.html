@@ -18,13 +18,13 @@
         </div>
     }
     @helper.form(routes.Auth.changePassword()) {
-        <h2 class="form-signin-heading">Вход</h2>
+        <h2 class="form-signin-heading">Изменение пароля</h2>
 
         @bootstrap.text(changePasswordForm("password"),'label-> "Старый пароль", 'type -> "password")
         @bootstrap.text(changePasswordForm("newPassword"), 'label->"Новый пароль", 'type -> "password")
         @bootstrap.text(changePasswordForm("newPassword1"), 'label->"Подтвердите новый пароль", 'type -> "password")
         <div class="form-group">
-            <button type="submit" class="btn btn-primary">Поменять пароль</button>
+            <button type="submit" class="btn btn-primary">Изменить пароль</button>
         </div>
     }
 }

@@ -71,27 +71,6 @@
 </section><!--/#main-slider-->
 
 <section id="hero-text" class="wow fadeIn">
-    <section id="services2">
-
-        <div class="container">
-            <div class="row">
-                @for(feature <- all.asScala){
-                <div class="col-lg-3 col-md-6 text-center">
-                    <div class="service-box">
-                        <i class="@feature.imageUrl"></i>
-                        <h3>@feature.title</h3>
-                        <p>@Html(feature.description)</p>
-                    </div>
-                </div>
-            </div>
-            }
-            @for(user <- a.asScala){
-            <row>
-                @user.email @user.salt
-            </row>
-            }
-        </div>
-    </section>
     <div class="container">
         <div class="row">
             <div class="col-sm-9">
@@ -121,52 +100,19 @@
         </div>
 
         <div class="row">
+            @for(feature <- all.asScala){
             <div class="col-md-3 col-sm-6">
-                <div class="team-member wow fadeInUp" data-wow-duration="400ms" data-wow-delay="0ms">
-                    <div class="img1">
-                        <img  src="images/team/1.png" alt="">
-                    </div>
-                    <div class="team-info">
-                        <h3>Теоретическая часть</h3>
-                        <div class="text2">  Вы будет изучать историю кулинарного искусства, а также национальные блюда других стран мира, чтобы получать гарантированный результат на кухне.</div>
-                    </div>
+                <div class="img1">
+                    <img src="@feature.imageUrl"></img>
                 </div>
+                <h3>@feature.title</h3>
+                <div class="text2">@Html(feature.description)</div>>
             </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="team-member wow fadeInUp" data-wow-duration="400ms" data-wow-delay="0ms">
-                    <div class="img1">
-                        <img  src="images/team/2.png" alt="">
-                    </div>
-                    <div class="team-info">
-                        <h3>Практическая часть</h3>
-                        <div class="text2"> Вы будете готовить 3 полноценных блюда в неделю. Все блюда подобраны таким образом, чтобы вы могли в течение курса закрепить знания технологий.</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="team-member wow fadeInUp" data-wow-duration="400ms" data-wow-delay="0ms">
-                    <div class="img1">
-                        <img  src="images/team/3.png" alt="">
-                    </div>
-                    <div class="team-info">
-                        <h3>Сопровождение</h3>
-                        <div class="text2"> Автор курса и его команда поваров ответит на все ваши вопросы, разберут ваши ошибки и помогут вам понять,что и как можно улучшить.</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3 col-sm-6">
-                <div class="team-member wow fadeInUp" data-wow-duration="400ms" data-wow-delay="0ms">
-                    <div class="img1">
-                        <img  src="images/team/4.png" alt="">
-                    </div>
-                    <div class="team-info">
-                        <h3>Подведение итогов</h3>
-                        <div class="text2"> В конце курса проводися конкурс. Вам будет предложено блюдо, которое необходимо приготовить за 1 час. Победитель получит специальный приз.</div>
-                    </div>
-                </div>
-            </div>
-
+            }
         </div>
+
+
+    </div>
 
 </section>
 
