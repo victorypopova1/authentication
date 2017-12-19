@@ -150,11 +150,11 @@ public class User extends Model {
     /**
      смена пароля
      */
-    public static String changePassword(String _password) {
+    public static String changePassword(String password) {
         User user = find.byId(new Secured().getUsername(current()));
 
         if (user!=null) {
-            user.setPassword(_password);
+            user.setPassword(password);
             user.save();
             return "Пароль изменен";
         }

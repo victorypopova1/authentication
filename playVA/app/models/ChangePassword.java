@@ -26,11 +26,12 @@ public class ChangePassword extends Model {
     public String validate() {
         // Проверка соответствия логина и пароля
         User user = find.byId(new Secured().getUsername(current()));
-        if((user != null)&&(user.checkPassword(password))&&(newPassword.equals(newPassword1))){
+        if(user.checkPassword(password)&&(newPassword.equals(newPassword1))){
             User.changePassword(newPassword);
             return null;
         }
-        else
+        else {
             return "Ошибка!!!";
+        }
     }
 }
